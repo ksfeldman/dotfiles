@@ -1,0 +1,63 @@
+general {
+  colors = false
+  interval = 1
+#  color_good = "#36E592"
+#  color_degraded = "#CE9726"
+#  color_bad = "#CE4B4F"
+#  color_separator = "#B3BEFF"
+  interval = 5
+}
+
+order += "wireless _first_"
+order += "load"
+order += "cpu_usage"
+order += "cpu_temperature 0"
+order += "cpu_temperature 1"
+order += "disk /"
+order += "disk /mnt/files"
+order += "volume master"
+order += "time"
+
+
+wireless _first_ {
+  format_up = "%quality  %essid  %ip"
+  format_down = ""
+}
+
+time {
+  format = " %a, %d %b %H:%M"
+}
+
+load {
+  format = "%1min"
+}
+
+cpu_usage {
+  format = " %usage"
+}
+
+cpu_temperature 0 {
+  format = " %degrees"
+  max_threshold = "65"
+}
+
+cpu_temperature 1 {
+  format = "gpu %degrees"
+  max_threshold = "65"
+  path = "/sys/class/hwmon/hwmon2/temp1_input"
+}
+
+
+disk "/" {
+  format = "/ %percentage_used"
+}
+
+disk "/mnt/files" {
+  format = "/files %percentage_used"
+}
+
+volume master {
+  format = "  %volume"
+  format_muted = " %volume"
+  device = "pulse:1"
+}
